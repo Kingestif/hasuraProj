@@ -10,6 +10,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "hasura-cli": "^2.36.1"
+    "@types/node": "^24.6.1",
+    "hasura-cli": "^2.36.1",
+    "prisma": "^6.16.3",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   }
 }
