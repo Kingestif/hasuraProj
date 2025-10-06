@@ -1,0 +1,12 @@
+type Mutation {
+  login(
+    email: String!
+    password: String!
+    role: String!
+  ): String!
+}
+
+type LoginResponse {
+  accessToken: String!
+}
+

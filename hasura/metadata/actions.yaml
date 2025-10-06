@@ -1,6 +1,11 @@
-actions: []
+actions:
+  - name: login
+    definition:
+      kind: asynchronous
+      handler: https://hasura-actions-demo.glitch.me/login
 custom_types:
   enums: []
   input_objects: []
-  objects: []
+  objects:
+    - name: LoginResponse
   scalars: []
