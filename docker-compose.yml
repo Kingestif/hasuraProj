@@ -22,6 +22,7 @@ services:
       HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       HASURA_GRAPHQL_ENABLE_CONSOLE: "false" # otherwise migration won't work
       HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      HASURA_ACTION_BASE_URL: ${HASURA_ACTION_BASE_URL}
     networks:     
       - hasuraNet
 
