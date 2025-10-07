@@ -54,12 +54,13 @@ app.post('/signup', async (req, res) => {
 
 app.post('/login', async (req, res) => {
     try {
-        if (!req.body.email || !req.body.password) {
+        const {email,password} = req.body.input;
+        console.log(email)
+        if (!email || !password) {
             throw new Error("Request parameters can't be empty")
         }
-        const password = req.body.password;
         const user = await prisma.user.findUnique({
-            where: { email: req.body.email }
+            where: { email: email }
         })
 
         if (!user) {
@@ -83,7 +84,7 @@ app.post('/login', async (req, res) => {
         }
         const jwtSecret = process.env.JWTSECRET;
 
-        const token = jwt.sign({ email: req.body.email }, jwtSecret)
+        const token = jwt.sign({ email: email }, jwtSecret)
 
         return res.status(200).json({
             message: "Authorized",
