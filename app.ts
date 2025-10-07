@@ -18,7 +18,12 @@ app.listen(port, () => {
 
 app.post('/signup', async (req, res) => {
     try {
-        console.log("endpoint HIT!")
+        if(req.headers['action_secret'] !== process.env.ACTION_SECRET_ENV){
+            return res.status(400).json({
+                message: "Unauthorized"
+            })
+        }
+
         const { email, password, role } = req.body.input
         if (!email || !password || !role) {
             throw new Error("Empty Request Parameters")
@@ -54,6 +59,12 @@ app.post('/signup', async (req, res) => {
 
 app.post('/login', async (req, res) => {
     try {
+        if(req.headers['action_secret'] !== process.env.ACTION_SECRET_ENV){
+            return res.status(400).json({
+                message: "Unauthorized"
+            })
+        }
+
         const {email,password} = req.body.input;
         if (!email || !password) {
             throw new Error("Request parameters can't be empty")

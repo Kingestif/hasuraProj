@@ -3,15 +3,16 @@ actions:
     definition:
       kind: synchronous
       handler: '{{HASURA_ACTION_BASE_URL}}/login'
+      headers:
+        - name: ACTION_SECRET
+          value_from_env: ACTION_SECRET_ENV
   - name: signup
     definition:
       kind: synchronous
       handler: '{{HASURA_ACTION_BASE_URL}}/signup'
-      request_transform:
-        method: POST
-        query_params: {}
-        template_engine: Kriti
-        version: 2
+      headers:
+        - name: ACTION_SECRET
+          value_from_env: ACTION_SECRET_ENV
 custom_types:
   enums: []
   input_objects: []
