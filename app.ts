@@ -55,7 +55,6 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
     try {
         const {email,password} = req.body.input;
-        console.log(email)
         if (!email || !password) {
             throw new Error("Request parameters can't be empty")
         }
