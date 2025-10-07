@@ -2,11 +2,37 @@ type Mutation {
   login(
     email: String!
     password: String!
+  ): output
+}
+
+type Mutation {
+  signup(
+    email: String!
+    password: String!
     role: String!
-  ): String!
+  ): SampleOutput
 }
 
 type LoginResponse {
+  accessToken: String!
+}
+
+type SignupUser {
+  id: Int!
+  email: String!
+  password: String!
+  role: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type SampleOutput {
+  message: String!
+  user: SignupUser!
+}
+
+type output {
+  message: String!
   accessToken: String!
 }
 
