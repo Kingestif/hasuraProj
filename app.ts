@@ -79,6 +79,7 @@ app.post('/login', async (req, res) => {
             })
         }
         const hashedPass = user.password;
+        const userID = user.id
 
         const result = await bcrypt.compare(password, hashedPass)
         if (!result) {
@@ -94,7 +95,14 @@ app.post('/login', async (req, res) => {
         }
         const jwtSecret = process.env.JWTSECRET;
 
-        const token = jwt.sign({ email: email }, jwtSecret)
+        const token = jwt.sign({
+            email: email,
+            "https://hasura.io/jwt/claims":{
+                "X-Hasura-User-Id": String(userID),
+                "X-Hasura-Default-Role":"customer",
+                "X-Hasura-Allowed-Roles": ["customer"]
+            }
+        }, jwtSecret)
 
         return res.status(200).json({
             message: "Authorized",

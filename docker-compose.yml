@@ -24,6 +24,8 @@ services:
       HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
       HASURA_ACTION_BASE_URL: ${HASURA_ACTION_BASE_URL}
       ACTION_SECRET_ENV: ${ACTION_SECRET_ENV}
+      HASURA_GRAPHQL_JWT_SECRET: '{ "type": "HS256", "key": "${JWTSECRET}" }'
+
     networks:     
       - hasuraNet
 
