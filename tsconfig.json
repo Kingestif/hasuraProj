@@ -2,8 +2,10 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
+    "esModuleInterop": true,
 
-    "module": "nodenext",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "target": "esnext",
     "types": [],
     "sourceMap": true,
@@ -14,7 +16,7 @@
     "exactOptionalPropertyTypes": true,
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
