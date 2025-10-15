@@ -2,19 +2,19 @@ import bcrypt from 'bcrypt'
 import prisma from '../prisma';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { config } from '../validation/envValidation';
+import { LoginType } from '../validation/authValidation';
 
 export const login = async(req:Request, res:Response)=>{
     try {
-        if(req.headers['action_secret'] !== process.env.ACTION_SECRET_ENV){
+        if(req.headers['action_secret'] !== config.ACTION_SECRET_ENV){
             return res.status(400).json({
                 message: "Unauthorized"
             })
         }
 
-        const {email,password} = req.body.input;
-        if (!email || !password) {
-            throw new Error("Request parameters can't be empty")
-        }
+        const {email,password} = LoginType.parse(req.body.input);
+
         const user = await prisma.user.findUnique({
             where: { email: email }
         })
@@ -24,6 +24,7 @@ export const login = async(req:Request, res:Response)=>{
                 message: "user not found"
             })
         }
+
         const hashedPass = user.password;
         const userID = user.id
 
@@ -34,12 +35,7 @@ export const login = async(req:Request, res:Response)=>{
             })
         }
 
-        if (!process.env.JWTSECRET || typeof (process.env.JWTSECRET) !== "string") {
-            return res.status(500).json({
-                message: "can't read jwt secret"
-            })
-        }
-        const jwtSecret = process.env.JWTSECRET;
+        const jwtSecret = config.JWTSECRET;
 
         const token = jwt.sign({
             email: email,

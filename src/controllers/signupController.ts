@@ -1,23 +1,20 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
 import bcrypt from 'bcrypt';
+import { SignupType } from "../validation/authValidation";
+import { config } from "../validation/envValidation";
 
-export const Signup = async(req:Request, res:Response)=>{
+export const Signup = async (req: Request, res: Response) => {
     try {
-        if(req.headers['action_secret'] !== process.env.ACTION_SECRET_ENV){
+        if (req.headers['action_secret'] !== config.ACTION_SECRET_ENV) {
             return res.status(400).json({
                 message: "Unauthorized"
             })
         }
 
-        const { email, password, role } = req.body.input
-        if (!email || !password || !role) {
-            throw new Error("Empty Request Parameters")
-        }
+        const { email, password, role } = SignupType.parse(req.body.input);
 
-        const saltRound = Number(process.env.SALTROUND);
-
-        if (!saltRound) throw new Error("Cant' find salt round")
+        const saltRound = Number(config.SALTROUND);
 
         const hash = await bcrypt.hash(password, saltRound);
 

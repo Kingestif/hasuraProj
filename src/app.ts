@@ -1,7 +1,5 @@
 import express from "express"
-import dotenv from "dotenv"
 import authRoute from "./routes/authRoutes.js"
-dotenv.config()
 
 const app = express()
 const port = process.env.PORT
@@ -12,6 +10,6 @@ app.listen(port, () => {
     console.log(`Server Started running at port ${port}`)
 })
 
-app.use('/auth',authRoute);
+app.use('/auth', authRoute);
 
 export default app;
